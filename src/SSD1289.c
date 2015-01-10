@@ -149,13 +149,7 @@ void SSD1289_SetCursor( uint16_t Xpos, uint16_t Ypos )
 	#elif  ( DISP_ORIENTATION == 0 ) || ( DISP_ORIENTATION == 180 )
 		
 	#endif
-  	/*SSD1289_WriteReg(0x004f, Xpos );
-    DelayMS(5);
-    SSD1289_WriteReg(0x004e, Ypos );*/
     int x1 = Xpos, y1 = Ypos, x2 = x1, y2 = y1;
-    SSD1289_WriteReg(0x44,(x2<<8)+x1);
-    SSD1289_WriteReg(0x45,y1);
-    SSD1289_WriteReg(0x46,y2);
     SSD1289_WriteReg(0x4e,x1);
     SSD1289_WriteReg(0x4f,y1);
 }
@@ -166,55 +160,53 @@ void SSD1289_Init(void)
   	Clr_Reset;
 	DelayMS(2000);
   	Set_Reset;
-    Set_Backlight;
 
-	SSD1289_WriteReg(0x0000,0x0001);    DelayMS(50);   /* Enable SSD1289 Oscillator */
-	SSD1289_WriteReg(0x0003,0xA8A4);    DelayMS(50);   
-	SSD1289_WriteReg(0x000C,0x0000);    DelayMS(50);   
-	SSD1289_WriteReg(0x000D,0x080C);    DelayMS(50);   
-	SSD1289_WriteReg(0x000E,0x2B00);    DelayMS(50);   
-	SSD1289_WriteReg(0x001E,0x00B0);    DelayMS(50);   
-	SSD1289_WriteReg(0x0001,0x2B3F);    DelayMS(50);   /* 320*240 0x2B3F */
-	SSD1289_WriteReg(0x0002,0x0600);    DelayMS(50);
-	SSD1289_WriteReg(0x0010,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0011,0x6070);    DelayMS(50);
-	SSD1289_WriteReg(0x0005,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0006,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0016,0xEF1C);    DelayMS(50);
-	SSD1289_WriteReg(0x0017,0x0003);    DelayMS(50);
-	SSD1289_WriteReg(0x0007,0x0133);    DelayMS(50);         
-	SSD1289_WriteReg(0x000B,0);    DelayMS(50);
- 	SSD1289_WriteReg(0x000F,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0041,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0042,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0048,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0049,0x013F);    DelayMS(50);
-	SSD1289_WriteReg(0x004A,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x004B,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0044,0xEF00);    DelayMS(50);
-	SSD1289_WriteReg(0x0045,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0046,0x013F);    DelayMS(50);
-	SSD1289_WriteReg(0x0030,0x0707);    DelayMS(50);
-	SSD1289_WriteReg(0x0031,0x0204);    DelayMS(50);
-	SSD1289_WriteReg(0x0032,0x0204);    DelayMS(50);
-	SSD1289_WriteReg(0x0033,0x0502);    DelayMS(50);
-	SSD1289_WriteReg(0x0034,0x0507);    DelayMS(50);
-	SSD1289_WriteReg(0x0035,0x0204);    DelayMS(50);
-	SSD1289_WriteReg(0x0036,0x0204);    DelayMS(50);
-	SSD1289_WriteReg(0x0037,0x0502);    DelayMS(50);
-	SSD1289_WriteReg(0x003A,0x0302);    DelayMS(50);
-	SSD1289_WriteReg(0x003B,0x0302);    DelayMS(50);
-	SSD1289_WriteReg(0x0023,0x0000);    DelayMS(50);
- 	SSD1289_WriteReg(0x0024,0x0000);    DelayMS(50);
-	SSD1289_WriteReg(0x0025,0x8000);    DelayMS(50);
+	SSD1289_WriteReg(0x0000,0x0001);
+	SSD1289_WriteReg(0x0003,0xA8A4);   
+	SSD1289_WriteReg(0x000C,0x0000);   
+	SSD1289_WriteReg(0x000D,0x080C);   
+	SSD1289_WriteReg(0x000E,0x2B00);   
+	SSD1289_WriteReg(0x001E,0x00B0);   
+	SSD1289_WriteReg(0x0001,0x2B3F);
+	SSD1289_WriteReg(0x0002,0x0600);
+	SSD1289_WriteReg(0x0010,0x0000);
+	SSD1289_WriteReg(0x0011,0x6070);
+	SSD1289_WriteReg(0x0005,0x0000);
+	SSD1289_WriteReg(0x0006,0x0000);
+	SSD1289_WriteReg(0x0016,0xEF1C);
+	SSD1289_WriteReg(0x0017,0x0003);
+	SSD1289_WriteReg(0x0007,0x0133);     
+	SSD1289_WriteReg(0x000B,0x0000);
+ 	SSD1289_WriteReg(0x000F,0x0000);
+	SSD1289_WriteReg(0x0041,0x0000);
+	SSD1289_WriteReg(0x0042,0x0000);
+	SSD1289_WriteReg(0x0048,0x0000);
+	SSD1289_WriteReg(0x0049,0x013F);
+	SSD1289_WriteReg(0x004A,0x0000);
+	SSD1289_WriteReg(0x004B,0x0000);
+	SSD1289_WriteReg(0x0044,0xEF00);
+	SSD1289_WriteReg(0x0045,0x0000);
+	SSD1289_WriteReg(0x0046,0x013F);
+	SSD1289_WriteReg(0x0030,0x0707);
+	SSD1289_WriteReg(0x0031,0x0204);
+	SSD1289_WriteReg(0x0032,0x0204);
+	SSD1289_WriteReg(0x0033,0x0502);
+	SSD1289_WriteReg(0x0034,0x0507);
+	SSD1289_WriteReg(0x0035,0x0204);
+	SSD1289_WriteReg(0x0036,0x0204);
+	SSD1289_WriteReg(0x0037,0x0502);
+	SSD1289_WriteReg(0x003A,0x0302);
+	SSD1289_WriteReg(0x003B,0x0302);
+	SSD1289_WriteReg(0x0023,0x0000);
+ 	SSD1289_WriteReg(0x0024,0x0000);
+	SSD1289_WriteReg(0x0025,0x8000);
 	SSD1289_WriteReg(0x004f,0);
 	SSD1289_WriteReg(0x004e,0);
 
     DelayMS(50);   /* delay 50 ms */		
 
     SSD1289_Clear(Black);
-
-    DelayMS(500); 
+    Set_Backlight;
 }
 
 void setBit(GPIO_TypeDef *bus, int p, uint16_t t)
@@ -232,18 +224,14 @@ void pulse_low(GPIO_TypeDef *bus, int p)
 
 void SSD1289_Clear(uint16_t Color)
 {
-	uint32_t x=0, y=0;
+	uint32_t x=0;
 
-    SSD1289_SetCursor(0,0);
-
-	Clr_Cs; 
-	SSD1289_WriteIndex(0x0022);
-	for( x = 0; x < MAX_X; x++ )
+    SSD1289_SetCursor(0, 0);
+    Clr_Cs;
+    SSD1289_WriteIndex(0x0022);
+	for( x = 0; x < MAX_X*MAX_Y; x++ )
 	{
-        for( y = 0; y < MAX_Y; y++ )
-        {
-            SSD1289_SetPoint(x,y,Color);
-        }
+        SSD1289_WriteData(Color);
 	}
 	Set_Cs;
 }

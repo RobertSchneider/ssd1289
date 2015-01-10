@@ -17,10 +17,8 @@ void lcd_initLCD()
 	RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_RNG, ENABLE);
 	RNG_Cmd(ENABLE);
 	SSD1289_Init();
-	DelayMS(500);
-	SSD1289_Clear(Black);
 	XPT2046_Init();
-	DelayMS(500);
+	DelayMS(50);
 }
 
 void addButtonList(ButtonInfo b)

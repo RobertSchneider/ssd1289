@@ -43,6 +43,12 @@ int main(void)
   EnableDebugOutput(DEBUG_ITM);
 
   lcd_initLCD();
+  char *t = "Sainsmart 3.2 TFT";
+  int xT = MAX_X/2-strlen(t)/2*8;
+  int yT = MAX_Y/2-16/2;
+  SSD1289_CleanTextFont(xT, yT, t, Red, SYSTEM_8x16);
+  DelayMS(1000);
+  SSD1289_Clear(Black);
 
   lcd_addButton((ButtonInfo){&button_clicked, 1, 10, 10, 70, 30, "Baum 1"});
   lcd_addButton((ButtonInfo){&button_clicked, 1, 10, 50, 70, 30, "Baum 2"});
@@ -57,8 +63,6 @@ int main(void)
     }while(Ptr == (void*)0);
     Coordinate OUT; 
     getDisplayPoint(&OUT, Ptr);
-    SSD1289_FillCircle(OUT.x, OUT.y, 4, Red);
-    if(Ptr->x != 0) printf("%d %d\n", OUT.x, OUT.y);
     lcd_checkButtons(&OUT);
   }
 }
